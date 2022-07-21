@@ -1,0 +1,25 @@
+- Get the total number of active students in CSM 1290
+- Get the total number of attendances with blank presences (i.e. the mentor did not fill anything out for the attendance) 4367
+- Get the total number of sections with nonzero capacity (capacity ≠ 0) 302
+- Get the total number of mentors with sections for CS61B 65
+- Get the total number of unexcused absences among all students in CS70 259
+
+
+
+
+- Get the total number of active students enrolled in CS61A 364
+- Get the number of sections with zoom links that contain a password
+- Get the total number of attendance objects for dates between 2/1/2022 and 3/1/2022 (inclusive) 5472
+- Challenge: Get the total number of students who have attended at least one section between 2/1/2022 and 3/1/2022 (inclusive) 1436
+
+
+
+-Get the total number of users with two or more student profiles 259
+-Get the number of sections with less than 3 students enrolled 21
+
+
+
+- Get the total number of sections with full capacity  123
+- Get the total number of active students who have at least two unexcused absences between 1/1/2022 and 5/1/2022    256
+- Get the total number of students who have attended at least one section between 2/1/2022 and 3/1/2022 (inclusive) 1436
+    
