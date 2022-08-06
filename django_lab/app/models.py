@@ -1,54 +1,54 @@
-#from typing_extensions import Required
 from django.db import models
-from django.contrib.auth.models import AbstractUser 
+from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
-    username= models.CharField(max_length=200, unique=True)
-    email= models.CharField(max_length=200)
-    first_name= models.CharField(max_length=200)
-    last_name= models.CharField(max_length=200)
+    pass
+
     def __str__(self):
-        return self.username
+        return f"{self.first_name} {self.last_name}"
 
 class Student(models.Model):
-    user = models.ForeignKey(User, related_name='student', on_delete=models.CASCADE)
-    section = models.ManyToManyField('Section')
-    course = models.CharField(max_length=200, default="CS70")
-    active = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    section = models.ForeignKey('Section', on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
     banned = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        firstName = self.user.first_name
+        lastName = self.user.last_name
+        return f"{firstName} {lastName} ({self.id})"
+
+class Mentor(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey('Course', on_delete=models.CASCADE)
+
+    def __str__(self):
+        firstName = self.user.first_name
+        lastName = self.user.last_name
+        return f"{firstName} {lastName} ({self.id})"
+
+class Section(models.Model):
+    mentor = models.OneToOneField(Mentor, on_delete=models.CASCADE)
+    capacity = models.IntegerField()
+    name = models.CharField(max_length=200)
+    description = models.CharField(max_length=200)
+
+    def __str__(self):
+        firstName = self.mentor.user.first_name
+        lastName = self.mentor.user.last_name
+        return f"Section By {firstName} {lastName} (id: {self.id})"
 
 class Course(models.Model):
     name = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.name
-
-class Mentor(models.Model):
-    user = models.ForeignKey(User, related_name='mentor', on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, related_name='mentor', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-
-
-class Section(models.Model):
-    student_in_section = models.ManyToManyField(Student, related_name="sectionname")
-    mentor = models.OneToOneField(Mentor, on_delete=models.CASCADE, primary_key=True)
-    capacity = models.IntegerField()
-    special = models.BooleanField(default=False)
-    name = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.name
-
-
+        return f"{self.name}"
 
 class Attendance(models.Model):
-    student = models.ForeignKey(Student, related_name='attendance', on_delete=models.PROTECT)
-    user_type = models.CharField(max_length=2, choices=[('P', 'Present'),('UA', 'Unexcused Absesnce'),('EA', "Excused Absence")])
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    presence= models.CharField(max_length=2, choices=[('PR', 'Present'),('UN', 'Unexcused Absesnce'),('EX', "Excused Absence")])
 
     def __str__(self):
-        return self.name
+        firstName = self.student.user.first_name
+        lastName = self.student.user.last_name
+        return f"{firstName} {lastName} {self.date}"
