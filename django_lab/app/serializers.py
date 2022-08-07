@@ -37,7 +37,7 @@ class StudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Student
-        fields=('id','user', 'section','course','active','banned')
+        fields=('id','user', 'course','section','course','active','banned')
 
 
 class AttendanceSerializer(serializers.ModelSerializer):
