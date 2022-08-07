@@ -2,18 +2,16 @@
 from rest_framework import serializers
 from app.models import User, Student, Mentor, Section, Course, Attendance
 
-
-
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'first_name', 'last_name']
+        fields = ('id', 'username', 'email', 'first_name', 'last_name')
 
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields=['id','name']
+        fields=('id','name')
 
 class MentorSerializer(serializers.ModelSerializer):
     user = UserSerializer()
@@ -21,7 +19,7 @@ class MentorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Mentor
-        fields=['id','user','course']
+        fields=('id','user','course')
  
 
 class SectionSerializer(serializers.ModelSerializer):
@@ -29,7 +27,7 @@ class SectionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Section
-        fields=['id','mentor', 'capacity','description']
+        fields=('id','mentor', 'capacity','description')
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -39,14 +37,14 @@ class StudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Student
-        fields=['id','user', 'section','course','active','banned']
+        fields=('id','user', 'section','course','active','banned')
 
 
 class AttendanceSerializer(serializers.ModelSerializer):
     student = StudentSerializer()
     class Meta:
         model = Attendance
-        fields=['id','student']
+        fields= ('id','student')
 
 
 
